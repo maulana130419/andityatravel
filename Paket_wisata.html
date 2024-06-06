@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="icon" href="images/favicon.ico" type="image/x-icon">
+    <!-- Stylesheets-->
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Montserrat:400,500,600,700%7CPoppins:400%7CTeko:300,400">
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="css/fonts.css">
+    <link rel="stylesheet" href="css/style.css">
+    <title>Paket Wisata</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: lightyellow;
+        }
+        .container {
+            width: 80%;
+            margin: 20px auto;
+            background-color: #fff5bb;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+        }
+        .category {
+            margin-bottom: 40px;
+        }
+        .category h2 {
+            font-size: 28px;
+            color: #333;
+            margin-bottom: 20px;
+        }
+        .slide-container {
+            display: flex;
+            overflow-x: auto;
+            scroll-behavior: smooth;
+            -webkit-overflow-scrolling: touch;
+        }
+        .slide {
+            flex: 0 0 300px;
+            margin-right: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border: 1px solid black;
+            background-color: lightyellow;
+            overflow: hidden;
+        }
+        .slide img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+        .slide-details {
+            padding: 15px;
+        }
+        .title {
+            font-size: 22px;
+            color: #333;
+            margin-bottom: 10px;
+        }
+        .details {
+            margin: 10px 0;
+        }
+        .price {
+            color: #d9534f;
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+        .cta {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #5cb85c;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        .cta:hover {
+            background-color: #4cae4c;
+        }
+        /* Modal styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgb(0,0,0);
+            background-color: rgba(0,0,0,0.4);
+            padding-top: 60px;
+        }
+        .modal-content {
+            background-color: #fefefe;
+            margin: 5% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            max-width: 500px;
+            border-radius: 10px;
+        }
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        .modal-content h2 {
+            margin-top: 0;
+        }
+        .modal-content form label {
+            display: block;
+            margin: 10px 0 5px;
+        }
+        .modal-content form input, 
+        .modal-content form button {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .modal-content form button {
+            background-color: #5cb85c;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
+        .modal-content form button:hover {
+            background-color: #4cae4c;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="category">
+        <h2>Bromo</h2>
+        <div class="slide-container">
+            <div class="slide">
+                <img src="images/6.jpg" alt="Bromo 1">
+                <div class="slide-details">
+                    <div class="title">Paket Bromo Sunrise</div>
+                    <div class="details">
+                        <strong>Durasi:</strong> 1 Hari <br>
+                        <strong>Fasilitas:</strong> Transportasi, Sarapan, Pemandu Wisata
+                    </div>
+                    <div class="price">Rp 500.000 per orang</div>
+                    <button class="cta" onclick="openModal('Paket Bromo Sunrise', 'Rp 500.000 per orang')">Pesan Sekarang</button>
+                </div>
+            </div>
+            <div class="slide">
+                <img src="images/2.jpg" alt="Bromo 2">
+                <div class="slide-details">
+                    <div class="title">Paket Bromo Midnight</div>
+                    <div class="details">
+                        <strong>Durasi:</strong> 2 Hari 1 Malam <br>
+                        <strong>Fasilitas:</strong> Transportasi, Penginapan, Pemandu Wisata
+                    </div>
+                    <div class="price">Rp 1.000.000 per orang</div>
+                    <button class="cta" onclick="openModal('Paket Bromo Midnight', 'Rp 1.000.000 per orang')">Pesan Sekarang</button>
+                </div>
+            </div>
+            <div class="slide">
+                <img src="images/1.jpg" alt="Bromo 3">
+                <div class="slide-details">
+                    <div class="title">Paket Bromo Adventure</div>
+                    <div class="details">
+                        <strong>Durasi:</strong> 3 Hari 2 Malam <br>
+                        <strong>Fasilitas:</strong> Transportasi, Penginapan, Makan, Pemandu Wisata
+                    </div>
+                    <div class="price">Rp 1.500.000 per orang</div>
+                    <button class="cta" onclick="openModal('Paket Bromo Adventure', 'Rp 1.500.000 per orang')">Pesan Sekarang</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="category">
+        <h2>Kawah Ijen</h2>
+        <div class="slide-container">
+            <div class="slide">
+                <img src="images/3.jpg" alt="Kawah Ijen 1">
+                <div class="slide-details">
+                    <div class="title">Paket Kawah Ijen Blue Fire</div>
+                    <div class="details">
+                        <strong>Durasi:</strong> 1 Hari <br>
+                        <strong>Fasilitas:</strong> Transportasi, Sarapan, Pemandu Wisata
+                    </div>
+                    <div class="price">Rp 600.000 per orang</div>
+                    <button class="cta" onclick="openModal('Paket Kawah Ijen Blue Fire', 'Rp 600.000 per orang')">Pesan Sekarang</button>
+                </div>
+            </div>
+            <div class="slide">
+                <img src="images/4.jpg" alt="Kawah Ijen 2">
+                <div class="slide-details">
+                    <div class="title">Paket Kawah Ijen Sunrise</div>
+                    <div class="details">
+                        <strong>Durasi:</strong> 2 Hari 1 Malam <br>
+                        <strong>Fasilitas:</strong> Transportasi, Penginapan, Pemandu Wisata
+                    </div>
+                    <div class="price">Rp 1.200.000 per orang</div>
+                    <button class="cta" onclick="openModal('Paket Kawah Ijen Sunrise', 'Rp 1.200.000 per orang')">Pesan Sekarang</button>
+                </div>
+            </div>
+            <div class="slide">
+                <img src="images/5.jpg" alt="Kawah Ijen 3">
+                <div class="slide-details">
+                    <div class="title">Paket Kawah Ijen Adventure</div>
+                    <div class="details">
+                        <strong>Durasi:</strong> 3 Hari 2 Malam <br>
+                        <strong>Fasilitas:</strong> 
+                        Transportasi, Penginapan, Makan, Pemandu Wisata
+                    </div>
+                    <div class="price">Rp 1.800.000 per orang</div>
+                    <button class="cta" onclick="openModal('Paket Kawah Ijen Adventure', 'Rp 1.800.000 per orang')">Pesan Sekarang</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="category">
+        <h2>Batu</h2>
+        <div class="slide-container">
+            <div class="slide">
+                <img src="https://example.com/batu1.jpg" alt="Batu 1">
+                <div class="slide-details">
+                    <div class="title">Paket Batu Wisata Alam</div>
+                    <div class="details">
+                        <strong>Durasi:</strong> 1 Hari <br>
+                        <strong>Fasilitas:</strong> Transportasi, Sarapan, Pemandu Wisata
+                    </div>
+                    <div class="price">Rp 400.000 per orang</div>
+                    <button class="cta" onclick="openModal('Paket Batu Wisata Alam', 'Rp 400.000 per orang')">Pesan Sekarang</button>
+                </div>
+            </div>
+            <div class="slide">
+                <img src="https://example.com/batu2.jpg" alt="Batu 2">
+                <div class="slide-details">
+                    <div class="title">Paket Batu Wisata Petualangan</div>
+                    <div class="details">
+                        <strong>Durasi:</strong> 2 Hari 1 Malam <br>
+                        <strong>Fasilitas:</strong> Transportasi, Penginapan, Pemandu Wisata
+                    </div>
+                    <div class="price">Rp 900.000 per orang</div>
+                    <button class="cta" onclick="openModal('Paket Batu Wisata Petualangan', 'Rp 900.000 per orang')">Pesan Sekarang</button>
+                </div>
+            </div>
+            <div class="slide">
+                <img src="https://example.com/batu3.jpg" alt="Batu 3">
+                <div class="slide-details">
+                    <div class="title">Paket Batu Wisata Keluarga</div>
+                    <div class="details">
+                        <strong>Durasi:</strong> 3 Hari 2 Malam <br>
+                        <strong>Fasilitas:</strong> Transportasi, Penginapan, Makan, Pemandu Wisata
+                    </div>
+                    <div class="price">Rp 1.300.000 per orang</div>
+                    <button class="cta" onclick="openModal('Paket Batu Wisata Keluarga', 'Rp 1.300.000 per orang')">Pesan Sekarang</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="category">
+        <h2>Malang</h2>
+        <div class="slide-container">
+            <div class="slide">
+                <img src="https://example.com/malang1.jpg" alt="Malang 1">
+                <div class="slide-details">
+                    <div class="title">Paket Malang City Tour</div>
+                    <div class="details">
+                        <strong>Durasi:</strong> 1 Hari <br>
+                        <strong>Fasilitas:</strong> Transportasi, Sarapan, Pemandu Wisata
+                    </div>
+                    <div class="price">Rp 350.000 per orang</div>
+                    <button class="cta" onclick="openModal('Paket Malang City Tour', 'Rp 350.000 per orang')">Pesan Sekarang</button>
+                </div>
+            </div>
+            <div class="slide">
+                <img src="https://example.com/malang2.jpg" alt="Malang 2">
+                <div class="slide-details">
+                    <div class="title">Paket Malang Heritage</div>
+                    <div class="details">
+                        <strong>Durasi:</strong> 2 Hari 1 Malam <br>
+                        <strong>Fasilitas:</strong> Transportasi, Penginapan, Pemandu Wisata
+                    </div>
+                    <div class="price">Rp 800.000 per orang</div>
+                    <button class="cta" onclick="openModal('Paket Malang Heritage', 'Rp 800.000 per orang')">Pesan Sekarang</button>
+                </div>
+            </div>
+            <div class="slide">
+                <img src="https://example.com/malang3.jpg" alt="Malang 3">
+                <div class="slide-details">
+                    <div class="title">Paket Malang Adventure</div>
+                    <div class="details">
+                        <strong>Durasi:</strong> 3 Hari 2 Malam <br>
+                        <strong>Fasilitas:</strong> Transportasi, Penginapan, Makan, Pemandu Wisata
+                    </div>
+                    <div class="price">Rp 1.200.000 per orang</div>
+                    <button class="cta" onclick="openModal('Paket Malang Adventure', 'Rp 1.200.000 per orang')">Pesan Sekarang</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+    <audio id="myAudio" loop>
+  <source src="trav.mp3" type="audio/mpeg">
+  Your browser does not support the audio element.
+</audio>
+
+<!-- The Modal -->
+<div id="bookingModal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <h2>Formulir Booking</h2>
+        <form id="bookingForm">
+            <label for="paket">Paket Wisata</label>
+            <input type="text" id="paket" name="paket" readonly><br><br>
+            <label for="harga">Harga</label>
+            <input type="text" id="harga" name="harga" readonly><br><br>
+            <label for="name">Nama</label>
+            <input type="text" id="name" name="name" required><br><br>
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" required><br><br>
+            <label for="phone">Nomor Telepon</label>
+            <input type="tel" id="phone" name="phone" required><br><br>
+            <button type="submit">Kirim</button>
+        </form>
+    </div>
+</div>
+    <script src="js/core.min.js"></script>
+    <script src="js/script.js"></script>
+<script>
+    function openModal(paket, harga) {
+        document.getElementById('paket').value = paket;
+        document.getElementById('harga').value = harga;
+        document.getElementById('bookingModal').style.display = "block";
+    }
+
+    function closeModal() {
+        document.getElementById('bookingModal').style.display = "none";
+    }
+
+    window.onclick = function(event) {
+        if (event.target == document.getElementById('bookingModal')) {
+            closeModal();
+        }
+    }
+
+    document.getElementById('bookingForm').onsubmit = function(e) {
+        e.preventDefault();
+        alert("Booking berhasil!");
+        closeModal();
+    }
+</script>
+
+</body>
+</html>

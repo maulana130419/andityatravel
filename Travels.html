@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="icon" href="images/favicon.ico" type="image/x-icon">
+    <!-- Stylesheets-->
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Montserrat:400,500,600,700%7CPoppins:400%7CTeko:300,400">
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="css/fonts.css">
+    <link rel="stylesheet" href="css/style.css">
+    <title>Travel Rute dari Malang</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: lightyellow;
+            color: #333;
+        }
+        .container {
+            width: 80%;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff5bb;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .slide-container {
+            position: relative;
+            max-width: 100%;
+            margin: 20px 0;
+        }
+            .slide img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+        .slide {
+            display: none;
+        }
+        .active-slide {
+            display: block;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            background-color: lightyellow;
+            margin: 10px 0;
+            padding: 15px;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+        li:hover {
+            background-color: #e1e1e1;
+        }
+        .details {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .price {
+            font-weight: bold;
+            color: #27ae60;
+        }
+        .schedule {
+            color: #555;
+        }
+        .prev, .next {
+            cursor: pointer;
+            position: absolute;
+            top: 50%;
+            width: auto;
+            padding: 16px;
+            margin-top: -22px;
+            color: white;
+            font-weight: bold;
+            font-size: 18px;
+            transition: 0.6s ease;
+            border-radius: 0 3px 3px 0;
+            user-select: none;
+        }
+        .next {
+            right: 0;
+            border-radius: 3px 0 0 3px;
+        }
+        .prev:hover, .next:hover {
+            background-color: rgba(0,0,0,0.8);
+        }
+        .actions {
+            margin-top: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .order-button {
+            padding: 10px 20px;
+            background-color: #27ae60;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .order-button:hover {
+            background-color: #219150;
+        }
+        .date-picker {
+            padding: 5px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+        .slide-text {
+    position: absolute;
+    bottom: 20px; /* Adjust as needed */
+    text-align: center;
+    left: 20px; /* Adjust as needed */
+    color: #ffffff7a;
+    font-size: 24px;
+    font-weight: bold;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Add shadow for better visibility */
+}
+/* Hide all travel routes initially */
+#travel-routes li {
+    display: none;
+}
+
+/* Show selected travel routes based on city filter */
+#travel-routes li.show {
+    display: block;
+}
+/* City filter styling */
+.filter-button {
+    padding: 8px 12px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-bottom: 20px;
+}
+
+/* Apply hover effect on the filter */
+.filter-button:hover {
+    background-color: lightyellow;
+}
+
+/* Apply focus effect on the filter */
+.filter-button:focus {
+    outline: none;
+    border-color: #66afe9;
+    box-shadow: 0 0 5px rgba(102, 175, 233, 0.5);
+}
+
+/* Apply transition for smoother changes */
+.filter-button {
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+    </style>
+</head>
+<body>
+        <header class="section page-header">
+        <!-- RD Navbar-->
+        <div class="rd-navbar-wrap">
+          <nav class="rd-navbar rd-navbar-corporate" data-layout="rd-navbar-fixed" data-sm-layout="rd-navbar-fixed" data-md-layout="rd-navbar-fixed" data-md-device-layout="rd-navbar-fixed" data-lg-layout="rd-navbar-static" data-lg-device-layout="rd-navbar-fixed" data-xl-layout="rd-navbar-static" data-xl-device-layout="rd-navbar-static" data-xxl-layout="rd-navbar-static" data-xxl-device-layout="rd-navbar-static" data-lg-stick-up-offset="46px" data-xl-stick-up-offset="46px" data-xxl-stick-up-offset="106px" data-lg-stick-up="true" data-xl-stick-up="true" data-xxl-stick-up="true">
+            <div class="rd-navbar-collapse-toggle rd-navbar-fixed-element-1" data-rd-navbar-toggle=".rd-navbar-collapse"><span></span></div>
+            <div class="rd-navbar-aside-outer">
+              <div class="rd-navbar-aside">
+                <!-- RD Navbar Panel-->
+                <div class="rd-navbar-panel">
+                  <!-- RD Navbar Toggle-->
+                  <button class="rd-navbar-toggle" data-rd-navbar-toggle=".rd-navbar-nav-wrap"><span></span></button>
+                  <!-- RD Navbar Brand-->
+                  <div class="rd-navbar-brand">
+                    <!--Brand--><a class="brand" href="index.html"><img src="images/logo-default-450x37.png" alt=""/></a>
+                  </div>
+                </div>
+                <div class="rd-navbar-aside-right rd-navbar-collapse">
+                  <ul class="rd-navbar-corporate-contacts">
+                    <li>
+                      <div class="unit unit-spacing-xs">
+                        <div class="unit-left"><span class="icon fa fa-clock-o"></span></div>
+                        <div class="unit-body">
+                          <p>24 Jam Service</p>
+                        </div>
+                      </div>
+                    </li>
+                    <li>
+                      <div class="unit unit-spacing-xs">
+                        <div class="unit-left"><span class="icon fa fa-phone"></span></div>
+                        <div class="unit-body"><a class="link-phone" href="tel:#">+62813-3151-2042</a></div>
+                      </div>
+                    </li>
+                  </ul><a class="button button-md button-default-outline-2 button-ujarak" href="#">Hubungi kami</a>
+                </div>
+              </div>
+            </div>
+            <div class="rd-navbar-main-outer">
+              <div class="rd-navbar-main">
+                <div class="rd-navbar-nav-wrap">
+                  <ul class="list-inline list-inline-md rd-navbar-corporate-list-social">
+                    <li><a class="icon fa fa-facebook" href="#"></a></li>
+                    <li><a class="icon fa fa-twitter" href="#"></a></li>
+                    <li><a class="icon fa fa-google-plus" href="#"></a></li>
+                    <li><a class="icon fa fa-instagram" href="#"></a></li>
+                  </ul>
+                  <!-- RD Navbar Nav-->
+                  <ul class="rd-navbar-nav">
+                    <li class="rd-nav-item active"><a class="rd-nav-link" href="index.html">Home</a>
+                    </li>
+                    <li class="rd-nav-item"><a class="rd-nav-link" href="about.html">About</a>
+                    </li>
+                    <li class="rd-nav-item"><a class="rd-nav-link" href="typography.html">Paket Tour</a>
+                    </li>
+                    <li class="rd-nav-item"><a class="rd-nav-link" href="contact-us.html">Paket Wisata</a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </nav>
+        </div>
+      </header>
+      <br/>
+            <br/>
+
+      <br/>
+
+    <div class="container">
+        <h1>Travel Rute dari Malang</h1>
+
+
+        <div class="slide-container">
+            <div class="slide active-slide">
+                <img src="images/1.jpg" alt="Slide 1" style="width:100%">
+                <div class="slide-text">Gunung Bromo</div>
+            </div>
+            <div class="slide">
+                <img src="images/2.jpg" alt="Slide 2" style="width:100%">
+            </div>
+            <div class="slide">
+                <img src="images/3.jpg" alt="Slide 3" style="width:100%">
+                                <div class="slide-text">Kawah Ijen</div>
+
+            </div>
+                        <div class="slide">
+                <img src="images/4.jpg" alt="Slide 4" style="width:100%">
+            </div>
+            <div class="slide">
+                <img src="images/5.jpg" alt="Slide 5" style="width:100%">
+            </div>
+                        <div class="slide">
+                <img src="images/para0.jpeg" alt="Slide 6" style="width:100%">
+               <div class="slide-text">Kota Batu</div>
+
+            </div>
+            
+            <div class="slide">
+                <img src="images/para1.jpeg" alt="Slide 7" style="width:100%">
+            </div>
+                        <div class="slide">
+                <img src="images/para2.jpg" alt="Slide 8" style="width:100%">
+            </div>
+                        <div class="slide">
+                <img src="images/para3.jpg" alt="Slide 9" style="width:100%">
+            </div>
+            <div class="slide">
+                <img src="images/para4.jpg" alt="Slide 10" style="width:100%">
+            </div>
+            
+            <a class="prev" onclick="changeSlide(-1)">&#10094;</a>
+            <a class="next" onclick="changeSlide(1)">&#10095;</a>
+        </div>
+        
+        <ul id="travel-routes">
+
+<!-- Add a button to trigger the SwalFire modal -->
+<button class="filter-button" onclick="showCityFilterModal()">Pilih Kota Tujuan:</button>
+            <li>
+                <div class="details">
+                    <span>Malang - Juanda</span>
+                    <span class="price">Rp 120.000</span>
+                </div>
+                <div class="schedule">Jadwal Berangkat: 07:00, 10:00, 13:00, 16:00</div>
+                <div class="actions">
+                    <input type="date" class="date-picker" id="date-malang-juanda">
+                    <button class="order-button" onclick="order('Malang - Juanda', 120000, 'date-malang-juanda')">Pesan</button>
+                </div>
+            </li>
+            <li>
+                <div class="details">
+                    <span>Juanda - Malang</span>
+                    <span class="price">Rp 120.000</span>
+                </div>
+                <div class="schedule">Jadwal Berangkat: 09:00, 12:00, 15:00, 18:00</div>
+                <div class="actions">
+                    <input type="date" class="date-picker" id="date-juanda-malang">
+                    <button class="order-button" onclick="order('Juanda - Malang', 120000, 'date-juanda-malang')">Pesan</button>
+                </div>
+            </li>
+            <li>
+                <div class="details">
+                    <span>Malang - Surabaya</span>
+                    <span class="price">Rp 100.000</span>
+                </div>
+                <div class="schedule">Jadwal Berangkat: 08:00, 11:00, 14:00, 17:00</div>
+                <div class="actions">
+                    <input type="date" class="date-picker" id="date-malang-surabaya">
+                    <button class="order-button" onclick="order('Malang - Surabaya', 100000, 'date-malang-surabaya')">Pesan</button>
+                </div>
+            </li>
+            <li>
+                <div class="details">
+                    <span>Surabaya - Malang</span>
+                    <span class="price">Rp 100.000</span>
+                </div>
+                <div class="schedule">Jadwal Berangkat: 10:00, 13:00, 16:00, 19:00</div>
+                <div class="actions">
+                    <input type="date" class="date-picker" id="date-surabaya-malang">
+                    <button class="order-button" onclick="order('Surabaya - Malang', 100000, 'date-surabaya-malang')">Pesan</button>
+                </div>
+            </li>
+            <li>
+                <div class="details">
+                    <span>Malang - Madiun</span>
+                    <span class="price">Rp 150.000</span>
+                </div>
+                <div class="schedule">Jadwal Berangkat: 06:00, 12:00, 18:00</div>
+                <div class="actions">
+                    <input type="date" class="date-picker" id="date-malang-madiun">
+                    <button class="order-button" onclick="order('Malang - Madiun', 150000, 'date-malang-madiun')">Pesan</button>
+                </div>
+            </li>
+            <li>
+                <div class="details">
+                    <span>Malang - Kediri</span>
+                    <span class="price">Rp 90.000</span>
+                </div>
+                <div class="schedule">Jadwal Berangkat: 07:00, 13:00, 19:00</div>
+                <div class="actions">
+                    <input type="date" class="date-picker" id="date-malang-kediri">
+                    <button class="order-button" onclick="order('Malang - Kediri', 90000, 'date-malang-kediri')">Pesan</button>
+                </div>
+            </li>
+            <li>
+                <div class="details">
+                    <span>Kediri - Malang</span>
+                    <span class="price">Rp 90.000</span>
+                </div>
+                <div class="schedule">Jadwal Berangkat: 08:00, 14:00, 20:00</div>
+                <div class="actions">
+                    <input type="date" class="date-picker" id="date-kediri-malang">
+                    <button class="order-button" onclick="order('Kediri - Malang', 90000, 'date-kediri-malang')">Pesan</button>
+                </div>
+            </li>
+            <li>
+                <div class="details">
+                    <span>Malang - Blitar</span>
+                    <span class="price">Rp 80.000</span>
+                </div>
+                <div class="schedule">Jadwal Berangkat: 09:00, 15:00, 21:00</div>
+                <div class="actions">
+                    <input type="date" class="date-picker" id="date-malang-blitar">
+                    <button class="order-button" onclick="order('Malang - Blitar', 80000, 'date-malang-blitar')">Pesan</button> 
+</div>
+                </div>
+            </li>
+
+        </ul>
+    </div>
+        <audio id="myAudio" loop>
+  <source src="trav.mp3" type="audio/mpeg">
+  Your browser does not support the audio element.
+</audio>
+    <script src="js/core.min.js"></script>
+    <script src="js/script.js"></script>
+    <script>
+        let slideIndex = 0;
+        showSlides();
+
+        function showSlides() {
+            let slides = document.getElementsByClassName("slide");
+            for (let i = 0; i < slides.length; i++) {
+                slides[i].style.display = "none";  
+            }
+            slideIndex++;
+            if (slideIndex > slides.length) {slideIndex = 1}    
+            slides[slideIndex-1].style.display = "block";  
+            setTimeout(showSlides, 2000); // Change image every 2 seconds
+        }
+
+        function changeSlide(n) {
+            slideIndex += n;
+            let slides = document.getElementsByClassName("slide");
+            if (slideIndex > slides.length) {slideIndex = 1}
+            if (slideIndex < 1) {slideIndex = slides.length}
+            for (let i = 0; i < slides.length; i++) {
+                slides[i].style.display = "none";  
+            }
+            slides[slideIndex-1].style.display = "block";
+        }
+
+        function order(route, price, datePickerId) {
+    let datePicker = document.getElementById(datePickerId);
+    let date = datePicker.value;
+    if (!date) {
+        Swal.fire({
+            title: "Isi Tanggal!",
+            text: "Pilih Tanggal Booking!",
+            icon: "warning"
+        });
+        return;
+    }
+
+    // Convert date to dd-mm-yyyy format
+    let formattedDate = formatDate(date);
+
+    // Display confirmation dialog
+    Swal.fire({
+        title: 'Konfirmasi Pesanan',
+        text: `Anda akan memesan tiket travel dengan rute berikut:\n\nRute: ${route}\nHarga: Rp ${price}\nTanggal Keberangkatan: ${formattedDate}`,
+        icon: 'info',
+        showCancelButton: true,
+        confirmButtonText: 'Ya, Pesan Sekarang',
+        cancelButtonText: 'Batal'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            // Display "Terima Kasih" message and then send WhatsApp message
+            Swal.fire({
+                title: 'Terima Kasih!',
+                text: 'Pesanan Anda telah diterima. Kami akan segera menghubungi Anda.',
+                icon: 'success'
+            }).then(() => {
+                sendWhatsAppMessage(route, price, formattedDate);
+            });
+        }
+    });
+}
+
+function sendWhatsAppMessage(route, price, date) {
+    let message = `Saya ingin memesan tiket travel dengan rute berikut:\n\nRute: ${route}\nHarga: Rp ${price}\nTanggal Keberangkatan: ${date}`;
+    let whatsappURL = `https://wa.me/6281216447149?text=${encodeURIComponent(message)}`;
+    window.open(whatsappURL, '_blank');
+}
+
+        function formatDate(dateString) {
+            let date = new Date(dateString);
+            let day = String(date.getDate()).padStart(2, '0');
+            let month = String(date.getMonth() + 1).padStart(2, '0');
+            let year = date.getFullYear();
+            return `${day}-${month}-${year}`;
+        }
+        function filterRoutes(selectedCity) {
+    let routes = document.getElementById("travel-routes").getElementsByTagName("li");
+
+    // Hide all routes initially
+    for (let i = 0; i < routes.length; i++) {
+        routes[i].style.display = "none";
+    }
+
+    // Show routes for the selected city or show all routes if "Semua Kota" (all cities) is selected
+    for (let i = 0; i < routes.length; i++) {
+        let route = routes[i];
+        let routeCity = route.querySelector(".details span").textContent.toLowerCase();
+        
+        if (selectedCity === "all" || routeCity.includes(selectedCity)) {
+            route.style.display = "block";
+        }
+    }
+}
+function showCityFilterModal() {
+    Swal.fire({
+        title: 'Pilih Kota',
+        input: 'select',
+        inputOptions: {
+            'all': 'Semua',
+            'juanda': 'Juanda',
+            'surabaya': 'Surabaya',
+            'madiun': 'Madiun',
+            'kediri': 'Kediri',
+            'blitar': 'Blitar'
+        },
+        inputValidator: (value) => {
+            if (!value) {
+                return 'Pilih salah satu kota!'
+            }
+        },
+        showCancelButton: true,
+        cancelButtonText: 'Batal',
+        confirmButtonText: 'Filter',
+        inputPlaceholder: 'Pilih satu kota',
+        inputValidator: (value) => {
+            if (!value) {
+                return 'You need to choose something!'
+            }
+        }
+}).then((result) => {
+        if (result.isConfirmed) {
+            // Display selected city in SwalFire result
+            Swal.fire({
+                icon: 'success',
+                title: 'Kota Terpilih:',
+                text: result.value
+            });
+
+            // Apply filter based on selected city
+            let selectedCity = result.value;
+            filterRoutes(selectedCity);
+        }
+    })
+}
+    </script>
+</body>
+</html>
